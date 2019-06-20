@@ -1,16 +1,26 @@
 body {
-  background-color: rgb(255, 255, 255);
+  background-image: url('purple-bg.jpg');
+  background-size: cover;
+  background-position: center;
   width: 1000px;
   margin: 10px auto;
   text-align: center;
   padding: 10px;
   user-select: none;
+  height: 100vh;
 }
 
 h2 {
-  font-size: 30px;
+  color: lightgreen;
+  text-shadow: rgb(22, 22, 204) 2px 2px;
+  font-size: 55px;
   text-align: center;
-  height: 75px;
+  height: 60px;
+  margin-bottom: 25px;
+  font-weight: bolder;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 span{
@@ -21,7 +31,7 @@ span{
 div[id^="row-"] div {
   width: 200px;
   height: 200px;
-  border: 1px solid blue;
+  border: 2px solid rgb(126, 37, 243);
   float: left;
 
 }
@@ -53,6 +63,9 @@ div.board {
   width: 608px;
   overflow: hidden;
   margin: 0 auto;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: yellowgreen;
 }
 button#start {
   margin-top: 35px;
