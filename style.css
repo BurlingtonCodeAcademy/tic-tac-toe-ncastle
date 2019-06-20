@@ -21,7 +21,7 @@ span{
 div[id^="row-"] div {
   width: 200px;
   height: 200px;
-  border: 1px solid red;
+  border: 1px solid blue;
   float: left;
 
 }
@@ -53,4 +53,16 @@ div.board {
   width: 608px;
   overflow: hidden;
   margin: 0 auto;
+}
+button#start {
+  margin-top: 35px;
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: solid 3px #333333
+  
+}
+button#start:disabled {
+  background-color: grey;
+  color: darkgray;
 }
