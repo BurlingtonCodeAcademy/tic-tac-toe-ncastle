@@ -65,7 +65,7 @@ div.board {
   margin: 0 auto;
   padding: 15px;
   border-radius: 5px;
-  background-color: yellowgreen;
+  background-color: rgb(154, 205, 50, .85);
 }
 button#start {
   margin-top: 35px;
