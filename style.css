@@ -67,6 +67,18 @@ div.board {
   border-radius: 5px;
   background-color: rgb(154, 205, 50, .85);
 }
+
+div.status {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+div.status input {
+  margin: 5px;
+}
+
 button#start {
   margin-top: 35px;
   padding: 20px;
@@ -78,4 +90,13 @@ button#start {
 button#start:disabled {
   background-color: grey;
   color: darkgray;
+}
+div#nameSelection:disabled {
+  display: none;
+}
+input#playerInput {
+  height: 2em;
+  font-size: 1em;
+  border-radius: 5px;
+  text-align: center;
 }

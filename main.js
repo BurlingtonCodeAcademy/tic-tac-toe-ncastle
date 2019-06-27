@@ -22,7 +22,18 @@ let game = {
     [2, 5, 8],  // right column
     [0, 4, 8],  // down-right diagonal
     [2, 4, 6]   // down-left diagonal
-  ]
+  ],
+  playerOne: {
+    name: 'Player X',
+    letter: 'X',
+    human: true
+  },
+  playerTwo: {
+    name: 'Player O',
+    letter: 'O',
+    human: false
+  }
+
 }
 
 // assign elements to variables
@@ -31,6 +42,8 @@ let turnStatus = document.getElementById('turn-status');
 // select all divs with an id starting with 'cell-' in
 // the element with a class of board (i.e. select all cells)
 let board = document.querySelectorAll('.board div[id^="cell-"]');
+let nameInput = document.getElementById('playerInput');
+let nameButton = document.getElementById('nameButton');
 
 // assign event listeners
 
@@ -40,16 +53,43 @@ startButton.addEventListener('click', () => {
   console.log('start button clicked');
   startButton.disabled = true;
   turnStatus.textContent = `Player ${game.turn}'s turn!`;
+  removeNameArea();
   // play game
   play();
 });
 
+
+nameButton.addEventListener('click', setNames);
+
+function removeNameArea() {
+  nameInput.style = 'display: none;';
+  nameButton.style = 'display: none;';  
+}
+
 /** Functions **/
+
+function setNames() {
+  console.log(`${nameInput.value} ${game.playerOne.name}`)
+
+  if (nameInput.value && game.playerOne.name === 'Player X') {
+    game.playerOne.name = nameInput.value;
+    nameInput.value = '';
+    nameInput.placeholder = `Enter Player Two's name`;
+  } else if (nameInput.value && game.playerTwo.name === 'Player O') {
+    game.playerTwo.name = nameInput.value;
+    nameInput.value = '';
+    removeNameArea(); // both players have names so remove from display
+  } else { 
+    removeNameArea();
+  }
+  console.log(`player names: ${game.playerOne.name} ${game.playerTwo.name}`);
+}
 
 // play()
 // this function starts the game when the start button is clicked
 function play() {
-  // inside play so that listeners aren't
+  
+  // inside play so that listeners arenPlayer X't
   // set until after game is started with button
   setCellListeners();
 }
@@ -78,9 +118,13 @@ function switchTurn() {
 // functionality for each cell listener, sets content to player turn,
 // sets the style of the cell, and switches the turn
 function cellListeners(evt) {
-  evt.target.textContent = game.turn;  // set cell's textContent to turn
-  evt.target.style = "font-size: 175px; pointer-events: none;";
-  switchTurn();   // switch turn to opposite player
+  if (evt.target.textContent !== '') {
+    alert('Please click an empty cell');
+  } else {
+    evt.target.textContent = game.turn;  // set cell's textContent to turn
+    evt.target.style = "font-size: 175px;";
+    switchTurn();   // switch turn to opposite player
+  }
 };
 
 //set up click listeners for each cell when clicked, they need 
