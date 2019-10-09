@@ -1,32 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   background-image: url('purple-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  width: 1000px;
-  margin: 10px auto;
+  background-position: cover;
   text-align: center;
-  padding: 10px;
   user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
   height: 100vh;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 h2 {
   color: lightgreen;
   text-shadow: rgb(22, 22, 204) 2px 2px;
-  font-size: 55px;
-  text-align: center;
-  height: 60px;
-  margin-bottom: 25px;
+  font-size: 3rem;
   font-weight: bolder;
   letter-spacing: 4px;
   text-transform: uppercase;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-span{
-  font-size: 75px;
-  margin-top: 20px;
+div.status {
+  font-size: 2rem;
+  color: whitesmoke;
+  text-shadow: 3px 3px 10px black;
 }
+
+div.status input {
+  margin: 5px;
+}
+
+.hidden {
+  display: none;
+}
+button#start {
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: solid 3px #333333
+}
+
+button#start:disabled {
+  background-color: grey;
+  color: darkgray;
+}
+
+#nameButton {
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+input#playerInput {
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+#timer {
+  font-size: 1.5rem;
+}
+
+
+/*******************************
+    CSS FOR TIC TAC TOE BOARD 
+ *******************************/
 
 div[id^="row-"] div {
   width: 200px;
@@ -66,37 +109,4 @@ div.board {
   padding: 15px;
   border-radius: 5px;
   background-color: rgb(154, 205, 50, .85);
-}
-
-div.status {
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-}
-
-div.status input {
-  margin: 5px;
-}
-
-button#start {
-  margin-top: 35px;
-  padding: 20px;
-  font-size: 20px;
-  border-radius: 5px;
-  border: solid 3px #333333
-  
-}
-button#start:disabled {
-  background-color: grey;
-  color: darkgray;
-}
-div#nameSelection:disabled {
-  display: none;
-}
-input#playerInput {
-  height: 2em;
-  font-size: 1em;
-  border-radius: 5px;
-  text-align: center;
 }

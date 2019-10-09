@@ -9,7 +9,7 @@
   <link type="text/css" rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body id="root">
   <h2>Tic Tac Toe</h2>
   <div class="board">
     <div id="row-1">
@@ -32,12 +32,13 @@
   <div class="status">
     <button id="start" type="button">Start Game</button>
     <div id="nameSelection">
-      <input id="playerInput" type="text" placeholder="Enter Player One's name">
+      <input id="playerInput" type="text" placeholder="Enter Player X's name">
       <button id="nameButton" type="button">Select Name</button>
     </div>
-    <h3 id="turn-status"></h3>
-    <h4 id="timer"></h4>
+    <h3 class="hidden" id="turn-status"></h3>
+    <h4 id="timer">Time: 00:00</h4>
   </div>
+
   <script src="main.js"></script>
 </body>
 

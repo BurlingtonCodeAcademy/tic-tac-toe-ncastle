@@ -23,12 +23,12 @@ let game = {
     [0, 4, 8],  // down-right diagonal
     [2, 4, 6]   // down-left diagonal
   ],
-  playerOne: {
+  playerX: {
     name: 'Player X',
     letter: 'X',
     human: true
   },
-  playerTwo: {
+  playerO: {
     name: 'Player O',
     letter: 'O',
     human: false
@@ -44,6 +44,8 @@ let turnStatus = document.getElementById('turn-status');
 let board = document.querySelectorAll('.board div[id^="cell-"]');
 let nameInput = document.getElementById('playerInput');
 let nameButton = document.getElementById('nameButton');
+let timer = document.getElementById('timer');
+let timerID = undefined;
 
 // assign event listeners
 
@@ -52,8 +54,9 @@ let nameButton = document.getElementById('nameButton');
 startButton.addEventListener('click', () => {
   console.log('start button clicked');
   startButton.disabled = true;
-  turnStatus.textContent = `Player ${game.turn}'s turn!`;
+  turnStatus.textContent = `${game.playerX.name}'s turn!`;
   removeNameArea();
+  turnStatus.classList.remove('hidden');
   // play game
   play();
 });
@@ -61,37 +64,40 @@ startButton.addEventListener('click', () => {
 
 nameButton.addEventListener('click', setNames);
 
+// sets display to none for name text input and button
 function removeNameArea() {
-  nameInput.style = 'display: none;';
-  nameButton.style = 'display: none;';  
+  nameInput.classList.add('hidden');
+  nameButton.classList.add('hidden');  
 }
 
 /** Functions **/
 
+// function used for the name button's event listener callback
 function setNames() {
-  console.log(`${nameInput.value} ${game.playerOne.name}`)
+  console.log(`${nameInput.value} ${game.playerX.name}`)
 
-  if (nameInput.value && game.playerOne.name === 'Player X') {
-    game.playerOne.name = nameInput.value;
+  if (nameInput.value && game.playerX.name === 'Player X') {
+    game.playerX.name = nameInput.value;
     nameInput.value = '';
-    nameInput.placeholder = `Enter Player Two's name`;
-  } else if (nameInput.value && game.playerTwo.name === 'Player O') {
-    game.playerTwo.name = nameInput.value;
+    nameInput.placeholder = `Enter Player O's name`;
+  } else if (nameInput.value && game.playerO.name === 'Player O') {
+    game.playerO.name = nameInput.value;
     nameInput.value = '';
     removeNameArea(); // both players have names so remove from display
   } else { 
     removeNameArea();
   }
-  console.log(`player names: ${game.playerOne.name} ${game.playerTwo.name}`);
+  console.log(`player names: ${game.playerX.name} ${game.playerO.name}`);
 }
 
 // play()
 // this function starts the game when the start button is clicked
 function play() {
-  
   // inside play so that listeners arenPlayer X't
   // set until after game is started with button
   setCellListeners();
+  timerID = startTimer();
+  console.log(timerID);
 }
 
 // function that switches the turn
@@ -106,11 +112,11 @@ function switchTurn() {
     if (game.turn === 'X') {
       game.turn = 'O';
       // change turnStatus
-      turnStatus.textContent = `Player ${game.turn}'s turn!`;
+      turnStatus.textContent = `${game.playerO.name}'s turn!`;
     // otherwise, O just went
     } else {
       game.turn = 'X'  // so change turn to X
-      turnStatus.textContent = `Player ${game.turn}'s turn!`;
+      turnStatus.textContent = `${game.playerX.name}'s turn!`;
     }
   }
 }
@@ -178,5 +184,37 @@ function checkForWinner() {
 
 // function that will display the winner to the turn status area
 function displayWinner(winner) {
-  turnStatus.textContent = `Player ${winner} Wins!`;
+  if (winner === 'X') turnStatus.textContent = `${game.playerX.name} Wins!`;
+  if (winner === 'O') turnStatus.textContent = `${game.playerO.name} Wins!`;
+  clearInterval(timerID);
+}
+
+// function that starts a timer for the game
+function startTimer() {
+  let intervalID = setInterval(tick, 1000);
+  let minutes = 0;
+  let seconds = 0;
+
+  function tick() {
+    seconds++;
+    // this is bad code, but it works
+    if (minutes < 10) {
+      if (seconds < 10) {
+        timer.textContent = `Time: 0${minutes}:0${seconds}`;
+      } else {
+        timer.textContent = `Time: 0${minutes}:${seconds}`;
+      }
+    } else {
+      if (seconds < 10) {
+        timer.textContent = `Time: ${minutes}:0${seconds}`;
+      } else {
+        timer.textContent = `Time: ${minutes}:${seconds}`;
+      }
+    }
+    if (seconds > 59) {
+      minutes++;
+      seconds = 0;
+    }
+  }
+  return intervalID;
 }
