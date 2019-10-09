@@ -32,7 +32,8 @@ let game = {
     name: 'Player O',
     letter: 'O',
     human: false
-  }
+  },
+  players: 0,
 
 }
 
@@ -46,6 +47,13 @@ let nameInput = document.getElementById('playerInput');
 let nameButton = document.getElementById('nameButton');
 let timer = document.getElementById('timer');
 let timerID = undefined;
+// buttons
+let ppBtn = document.getElementById('pp');
+let pcBtn = document.getElementById('pc');
+//modal
+let modal = document.getElementById('myModal');
+
+
 
 // assign event listeners
 
@@ -60,6 +68,26 @@ startButton.addEventListener('click', () => {
   // play game
   play();
 });
+
+// listens for button presses, closes the modal in front of the game
+ppBtn.addEventListener('click', () => {
+  console.log('player vs player clicked');
+  game.players+=2;
+  game.playerO.human = true;
+  modal.style.display = 'none';
+  console.log(game)
+});
+
+pcBtn.addEventListener('click', () => {
+  console.log('player vs computer clicked');
+  game.players++;
+  modal.style.display = 'none';
+  console.log(game)
+});
+
+// window.onclick = (e) => {
+//   if (e.target === modal) modal.style.display = 'none';
+// }
 
 
 nameButton.addEventListener('click', setNames);
