@@ -23,6 +23,11 @@ let game = {
     [0, 4, 8],  // down-right diagonal
     [2, 4, 6]   // down-left diagonal
   ],
+  gameBoard: [
+    ['','',''],
+    ['','',''],
+    ['','',''],
+  ],
   playerX: {
     name: 'Player X',
     letter: 'X',
@@ -52,6 +57,8 @@ let ppBtn = document.getElementById('pp');
 let pcBtn = document.getElementById('pc');
 //modal
 let modal = document.getElementById('myModal');
+
+console.log({board});
 
 
 
@@ -85,10 +92,6 @@ pcBtn.addEventListener('click', () => {
   console.log(game)
 });
 
-// window.onclick = (e) => {
-//   if (e.target === modal) modal.style.display = 'none';
-// }
-
 
 nameButton.addEventListener('click', setNames);
 
@@ -121,11 +124,31 @@ function setNames() {
 // play()
 // this function starts the game when the start button is clicked
 function play() {
-  // inside play so that listeners arenPlayer X't
+  // inside play so that listeners aren't
   // set until after game is started with button
   setCellListeners();
   timerID = startTimer();
   console.log(timerID);
+}
+
+
+function computerTurn() {
+  // get initial random cell
+  let computerPick = Math.floor(Math.random() * 9);
+  let count = 0;
+  // while the cell is not empty, randomly pick a new cell
+  while(board[computerPick].textContent !== "" && count < 20) {
+    computerPick = Math.floor(Math.random() * 9);
+    console.log({computerPick});
+    console.log({"board":board[computerPick]});
+    count++;
+  }
+  //when empty cell is found
+  // set contents of cell to the computers letter (O)
+  board[computerPick].textContent = 'O';
+  board[computerPick].style = "font-size: 175px;";
+  game.turn = 'X'  // change turn to X
+  turnStatus.textContent = `${game.playerX.name}'s turn!`;
 }
 
 // function that switches the turn
@@ -141,6 +164,9 @@ function switchTurn() {
       game.turn = 'O';
       // change turnStatus
       turnStatus.textContent = `${game.playerO.name}'s turn!`;
+      if(!game.playerO.human) {
+        setTimeout(computerTurn, 1000);
+      }
     // otherwise, O just went
     } else {
       game.turn = 'X'  // so change turn to X
@@ -157,6 +183,8 @@ function cellListeners(evt) {
   } else {
     evt.target.textContent = game.turn;  // set cell's textContent to turn
     evt.target.style = "font-size: 175px;";
+    // add turn to the gameBoard object
+    
     switchTurn();   // switch turn to opposite player
   }
 };

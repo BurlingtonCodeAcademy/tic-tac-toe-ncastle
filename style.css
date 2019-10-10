@@ -146,6 +146,11 @@ button#pp {
   background-size: cover;
 }
 
+button#pc {
+  background-image: url('./player_computer.png');
+  background-size: cover;
+}
+
 /* The Close Button */
 .close {
   color: #aaaaaa;
