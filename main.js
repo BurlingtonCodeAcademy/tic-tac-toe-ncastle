@@ -23,11 +23,6 @@ let game = {
     [0, 4, 8],  // down-right diagonal
     [2, 4, 6]   // down-left diagonal
   ],
-  gameBoard: [
-    ['','',''],
-    ['','',''],
-    ['','',''],
-  ],
   playerX: {
     name: 'Player X',
     letter: 'X',
@@ -39,7 +34,7 @@ let game = {
     human: false
   },
   players: 0,
-
+  turns: 0,
 }
 
 // assign elements to variables
@@ -55,8 +50,11 @@ let timerID = undefined;
 // buttons
 let ppBtn = document.getElementById('pp');
 let pcBtn = document.getElementById('pc');
+let yesBtn = document.getElementById('playAgain');
+let noBtn = document.getElementById('endGame');
 //modal
 let modal = document.getElementById('myModal');
+let modal2 = document.getElementById('newGameModal');
 
 console.log({board});
 
@@ -91,6 +89,18 @@ pcBtn.addEventListener('click', () => {
   modal.style.display = 'none';
   console.log(game)
 });
+
+yesBtn.addEventListener('click', () => {
+  console.log('play again!');
+  resetBoard();
+  modal2.style.display = 'none';
+  play();
+});
+
+noBtn.addEventListener('click', () => {
+  console.log('end game!');
+  modal2.style.display = 'none';
+})
 
 
 nameButton.addEventListener('click', setNames);
@@ -151,13 +161,23 @@ function computerTurn() {
   turnStatus.textContent = `${game.playerX.name}'s turn!`;
 }
 
+function openNewGameModal() {
+  modal2.style.display = "block";
+}
+
 // function that switches the turn
 function switchTurn() {
+  // increment number of turns
+  game.turns++;
   // check for winner before switching turns so that
   // displayWinner knows who's turn it is when someone wins
   if(checkForWinner()) {
     console.log(`found a winner: ${game.turn}`)
     // do nothing / end game / ask to play again
+    openNewGameModal();
+  } else if (!checkForWinner() && game.turns === 9) {
+    displayTie();
+    setTimeout(openNewGameModal, 3000);
   } else {
     // if X just went, then change turn to O
     if (game.turn === 'X') {
@@ -183,8 +203,6 @@ function cellListeners(evt) {
   } else {
     evt.target.textContent = game.turn;  // set cell's textContent to turn
     evt.target.style = "font-size: 175px;";
-    // add turn to the gameBoard object
-    
     switchTurn();   // switch turn to opposite player
   }
 };
@@ -243,6 +261,20 @@ function displayWinner(winner) {
   if (winner === 'X') turnStatus.textContent = `${game.playerX.name} Wins!`;
   if (winner === 'O') turnStatus.textContent = `${game.playerO.name} Wins!`;
   clearInterval(timerID);
+}
+
+function displayTie() {
+  turnStatus.textContent = `It's a tie!`;
+  clearInterval(timerID);
+}
+
+function resetBoard() {
+  board.forEach((elem) => {
+    elem.textContent = '';
+  });
+  game.turn = 'X',
+  game.turns = 0;
+  turnStatus.textContent = `${game.playerX.name}'s turn!`
 }
 
 // function that starts a timer for the game
