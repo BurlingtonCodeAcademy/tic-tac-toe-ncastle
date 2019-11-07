@@ -1,27 +1,185 @@
+/****************
+  GENERAL CSS
+*****************/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: rgb(255, 255, 255);
-  width: 1000px;
-  margin: 10px auto;
+  background-image: url('purple-bg.jpg');
+  background-position: cover;
   text-align: center;
-  padding: 10px;
   user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100vh;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 h2 {
-  font-size: 30px;
-  text-align: center;
-  height: 75px;
+  color: lightgreen;
+  text-shadow: rgb(22, 22, 204) 2px 2px;
+  font-size: 3rem;
+  font-weight: bolder;
+  letter-spacing: 4px;
+  text-transform: uppercase;
 }
 
-span{
-  font-size: 75px;
-  margin-top: 20px;
+div.status {
+  font-size: 2rem;
+  color: whitesmoke;
+  text-shadow: 3px 3px 10px black;
 }
+
+div.status input {
+  margin: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+button#start {
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: solid 3px #333333
+}
+
+button#start:disabled {
+  background-color: grey;
+  color: darkgray;
+}
+
+#nameButton {
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+input#playerInput {
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+#timer {
+  font-size: 1.5rem;
+}
+
+
+/******************
+    CSS FOR MODAL 
+ ******************/
+
+/* The Modal (background) */
+.modal {
+  display: block;  /* hidden at first */
+  position: fixed;  /* stay in place */ 
+  z-index: 1;   /* stay on top */
+  /*padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.newGameModal {
+  display: none;  /* hidden at first */
+}
+
+/* Modal Content */
+.modal-content {
+  position: absolute;
+  top: 50%; /* center content vertically */
+  transform: translate(-50%, -50%);  /* center div along center */
+  left: 50%;
+  background-color: rgba(42, 42, 42, 0.9);
+  padding: 15% 5%;
+  border: 3px solid #888;
+  width: 80%;
+  /* transition: all 1.5s ease; */
+  /* animation: slideOut 1.5s ease; */
+}
+
+/* @keyframes slideOut {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
+} */
+
+.modal-content p {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: whitesmoke;
+  text-shadow: 5px 5px 4px  rgb(117, 117, 117);
+  position: absolute;
+  top: 2em;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+.modal-content button {
+  width: 250px;
+  height: 250px;
+  margin: 0 2em;
+  border-radius: 3px;
+  border: none;
+  border: 3px solid maroon;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  opacity: 0.85;
+}
+
+button#pp {
+  background-image: url('./player_player.png');
+  background-size: cover;
+}
+
+button#pc {
+  background-image: url('./player_computer.png');
+  background-size: cover;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+/*******************************
+    CSS FOR TIC TAC TOE BOARD 
+ *******************************/
 
 div[id^="row-"] div {
   width: 200px;
   height: 200px;
-  border: 1px solid red;
+  border: 2px solid rgb(126, 37, 243);
   float: left;
 
 }
@@ -53,4 +211,7 @@ div.board {
   width: 608px;
   overflow: hidden;
   margin: 0 auto;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: rgb(154, 205, 50, .85);
 }
